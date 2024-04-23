@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-export function useFetching(fetchRequest) {
+type FetchRequest = () => Promise<void>;
+
+type IFetching = [
+  fetching: () => Promise<void>,
+  isLoading: boolean,
+  error: string,
+]
+
+export function useFetching(fetchRequest: FetchRequest): IFetching {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -8,7 +16,7 @@ export function useFetching(fetchRequest) {
     try {
       setIsLoading(true);
       await fetchRequest()
-    } catch(err) {
+    } catch(err: any) {
       setError(err)
     } finally {
       setIsLoading(false);

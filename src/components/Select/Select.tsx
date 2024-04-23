@@ -1,35 +1,46 @@
 import React, { useEffect, useState } from 'react'
+import styles from './Select.module.css'
+import { Vehicle } from '../../interfaces/interfaces'
 
-function Select({data, setData}) {
-  const [selectedSort, setSelectedSort] = useState('price');
+function Select({data, setData}: {
+  data: Vehicle[],
+  setData: React.Dispatch<React.SetStateAction<Vehicle[]>>
+}): JSX.Element {
+  const [selectedSort, setSelectedSort] = useState<string>('price');
 
   useEffect(() => {
     sortVehicles(selectedSort)
   }, [selectedSort])
 
-  function sortVehicles(selectedSort) {
+  function sortVehicles(selectedSort: string) {
     setData([...data].sort((a, b) => {
       if (selectedSort === 'price') {
         return a.price - b.price
       } else if (selectedSort === 'year') {
         return a.year - b.year
       }
+      return 0
     }))
     console.log('was sorted')
   }
 
-  function handleSelect(event) {
+  function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     setSelectedSort(event.target.value)
   }
 
   return (
-    <div>
-      <select value={selectedSort} onChange={() => handleSelect(event)}>
-        <option value="price">By price</option>
+    <section className={styles.filters}>
+      <select 
+        className={styles.select} 
+        value={selectedSort} 
+        onChange={handleSelect}
+      >
+        <option className={styles.select__option} value="price">By price</option>
         <option value="year">By year</option>
       </select>
-    </div>
+    </section>
   )
 }
+
 
 export default Select

@@ -1,23 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import VehicleCard from '../VehicleCard/VehicleCard'
-import Select from '../Select/Select'
+import React, { ReactNode } from 'react'
 
-function VehicleList({data, setData}) {
+type VehicleListProps = {
+  children: ReactNode[];
+};
+
+function VehicleList({children}: VehicleListProps) {
   return (
-    <div>
-      <Select data={data} setData={setData} />
-
-      {data.map((vehicle) => {
-        return (
-          <VehicleCard 
-            key={vehicle.id} 
-            veh={vehicle} 
-            data={data} 
-            setData={setData}
-          />
-        )
-      })}
-    </div>
+    <>
+      {children}
+    </>
   )
 }
 

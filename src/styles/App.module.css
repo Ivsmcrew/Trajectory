@@ -4,5 +4,12 @@ html, body{
   overflow-x: hidden;
 }
 .App{
-  height: 100vh;
+  background-color: #eaebf0;
+}
+.vehicles{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 30px;
+  gap: 30px;
 }
